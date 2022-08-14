@@ -15,7 +15,7 @@ if ((LEN == 0)); then
 	STATE=$(virsh dominfo "$name" | grep State | awk '{print $2}')
 	MACADDR=$(virsh domiflist "$name" | awk '{print $5}' | grep '\S' | tail -n +2)
 	IP=$(arp -n | grep  "${MACADDR}"| awk '{print $1}')
-	printf "Nom de la machine : "$name"\nStatus : ${STATE}\nMAC ADDRESS :\n${MACADDR}\nIP:\n${IP}\n" >> /home/miko/os/gestion/$name-$date.txt
+	printf "Nom de la machine : "$name"\nStatus : ${STATE}\nMAC ADDRESS :\n${MACADDR}\nIP:\n${IP}\n" >> /home/$(whoami)/$name-$date.txt
 	done
 
 fi
