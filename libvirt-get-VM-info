@@ -9,7 +9,7 @@ VM=$1
 LEN=${#VM}
 date=$(date '+%Y-%m-%d')
 if ((LEN == 0)); then
-	VM=$(virsh list --all | awk '{print $2}' | grep '\S' | tail -n +2)
+VM=$(virsh list --all | awk '{print $2}' | grep '\S' | tail -n +2)
 	for name in ${VM[@]}; do
 
 	STATE=$(virsh dominfo "$name" | grep State | awk '{print $2}')
@@ -18,8 +18,8 @@ if ((LEN == 0)); then
 	printf "Nom de la machine : "$name"\nStatus : ${STATE}\nMAC ADDRESS :\n${MACADDR}\nIP:\n${IP}\n" >> /home/$USER/$name-$date.txt
 	done
 else
-	STATE=$(virsh dominfo ${VM} | grep State | awk '{print $2}')
-        MACADDR=$(virsh domiflist ${VM} | awk '{print $5}' | grep '\S' | tail -n +2)
-        IP=$(arp -n | grep  "${MACADDR}"| awk '{print $1}')
-	printf "Nom de la machine : "${VM}"\nStatus : ${STATE}\nMAC ADDRESS :\n${MACADDR}\nIP:\n${IP}\n"
+STATE=$(virsh dominfo ${VM} | grep State | awk '{print $2}')
+MACADDR=$(virsh domiflist ${VM} | awk '{print $5}' | grep '\S' | tail -n +2)
+IP=$(arp -n | grep  "${MACADDR}"| awk '{print $1}')
+printf "Nom de la machine : "${VM}"\nStatus : ${STATE}\nMAC ADDRESS :\n${MACADDR}\nIP:\n${IP}\n"
 fi
