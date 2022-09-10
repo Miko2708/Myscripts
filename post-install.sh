@@ -17,7 +17,7 @@ fi
 #Configure UFW
 ufw allow 7225
 ufw default deny incoming 
-ufw allow from 88.172.246.192
+ufw enable 
 
 
 
